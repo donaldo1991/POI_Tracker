@@ -1,0 +1,29 @@
+<table class="table is-fullwidth">
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>Identifier</th>
+    <th>Co-ordinates</th>
+  </tr>
+  </thead>
+  <tbody>
+  {{#each country.points}}
+    <tr>
+      <td>
+        {{name}}
+      </td>
+      <td>
+        {{_id}}
+      </td>
+      <td>
+        {{coordinates}}
+      </td>
+      <td>
+        <a href="/country/{{../country._id}}/deletepoint/{{_id}}" class="ui icon button">
+          <i class="fas fa-trash"></i>
+        </a>
+      </td>
+    </tr>
+  {{/each}}
+  </tbody>
+</table>
