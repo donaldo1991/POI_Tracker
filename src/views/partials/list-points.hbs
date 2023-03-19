@@ -3,7 +3,9 @@
   <tr>
     <th>Name</th>
     <th>Identifier</th>
-    <th>Co-ordinates</th>
+    <th>Longitude</th>
+    <th>Latitude</th>
+    <th>Description</th>
   </tr>
   </thead>
   <tbody>
@@ -16,7 +18,13 @@
         {{_id}}
       </td>
       <td>
-        {{coordinates}}
+        {{longitude}}
+      </td>
+      <td>
+        {{latitude}}
+      </td>
+      <td>
+        {{description}}
       </td>
       <td>
         <a href="/country/{{../country._id}}/deletepoint/{{_id}}" class="ui icon button">
@@ -27,3 +35,4 @@
   {{/each}}
   </tbody>
 </table>
+

@@ -38,6 +38,8 @@ export const pointMemStore = {
   async updatePoint(point, updatedPoint) {
     point.name = updatedPoint.name;
     point.identifier = v4();
-    point.coordinates = updatedPointk.coordinates;
+    point.longitude = updatedPointk.longitude;
+    point.latitude = updatedPointk.latitude;
+    point.description = updatedPointk.description;
   },
 };

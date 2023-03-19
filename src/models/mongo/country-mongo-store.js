@@ -37,6 +37,13 @@ export const countryMongoStore = {
     }
   },
 
+  async updateCountry(updatedCountry) {
+    const country = await Country.findOne({ _id: updatedCountry._id });
+    country.name = updatedCountry.name;
+    country.img = updatedCountry.img;
+    await country.save();
+  },
+
   async deleteAllCountries() {
     await Country.deleteMany({});
   }

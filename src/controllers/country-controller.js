@@ -1,5 +1,6 @@
 import { db } from "../models/db.js";
 import { PointSpec } from "../models/joi-schemas.js";
+import { imageStore } from "../models/image-store.js";
 
 export const countryController = {
   index: {
@@ -25,7 +26,9 @@ export const countryController = {
       const country = await db.countryStore.getCountryById(request.params.id);
       const newPoint = {
         name: request.payload.name,
-        coordinates: Number(request.payload.coordinates),
+        longitude: Number(request.payload.longitude),
+        latitude: Number(request.payload.latitude),
+        description: request.payload.description,
       };
       await db.pointStore.addPoint(country._id, newPoint);
       return h.redirect(`/country/${country._id}`);
@@ -39,4 +42,29 @@ export const countryController = {
       return h.redirect(`/country/${country._id}`);
     },
   },
+
+  uploadImage: {
+    handler: async function (request, h) {
+      try {
+        const country = await db.countryStore.getCountryById(request.params.id);
+        const file = request.payload.imagefile;
+        if (Object.keys(file).length > 0) {
+          const url = await imageStore.uploadImage(request.payload.imagefile);
+          country.img = url;
+          await db.countryStore.updateCountry(country);
+        }
+        return h.redirect(`/country/${country._id}`);
+      } catch (err) {
+        console.log(err);
+        return h.redirect(`/country/${country._id}`);
+      }
+    },
+    payload: {
+      multipart: true,
+      output: "data",
+      maxBytes: 209715200,
+      parse: true,
+    },
+  },
+
 };

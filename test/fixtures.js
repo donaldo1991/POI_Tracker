@@ -29,37 +29,45 @@ export const testUsers = [
 ];
 
 export const testCountry = {
-  name: "test country"
+  name: "test country",
 };
 
 export const testCountries = [
   {
-    name: "Ireland"
+    name: "Ireland",
   },
   {
-    name: "England"
+    name: "England",
   },
   {
-    name: "Scotland"
+    name: "Scotland",
   }
 ];
 
 export const testPoint = {
   "name": "test name",
-  "coordinates": 9999,
+  "longitude": 1,
+  "latitude": 2,
+  "description": "test description"
 };
 
 export const testPoints = [
   {
     "name": "Cliffs of Moher",
-    "coordinates": -7.34,
+    "longitude": 1,
+    "latitude": 2,
+    "description": "test description"
   },
   {
     "name": "Cliffs of Dover",
-    "coordinates": -9.7,
+    "longitude": 1,
+    "latitude": 2,
+    "description": "test description"
   },
   {
     "name": "Edinburgh Castle",
-    "coordinates": -6.33,
+    "longitude": 1,
+    "latitude": 2,
+    "description": "test description"
   }
 ];

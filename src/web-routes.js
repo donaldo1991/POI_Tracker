@@ -19,7 +19,10 @@ export const webRoutes = [
   { method: "GET", path: "/dashboard/deletecountry/{id}", config: dashboardController.deleteCountry },
   { method: "GET", path: "/country/{id}/deletepoint/{pointid}", config: countryController.deletePoint },
 
-  { method: "GET", path: "/{param*}", handler: { directory: { path: "./public" } }, options: { auth: false } }
+  { method: "GET", path: "/{param*}", handler: { directory: { path: "./public" } }, options: { auth: false } },
+
+  { method: "POST", path: "/country/{id}/uploadimage", config: countryController.uploadImage }
+
 
 
 ];

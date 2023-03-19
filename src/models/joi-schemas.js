@@ -23,7 +23,9 @@ export const UserArray = Joi.array().items(UserSpecPlus).label("UserArray");
 export const PointSpec = Joi.object()
   .keys({
     name: Joi.string().example("Cliffs of Moher").required(),
-    coordinates: Joi.number().example(1).required(),
+    longitude: Joi.number().example(1).required(),
+    latitude: Joi.number().example(1).required(),
+    description: Joi.string().example("Cliffs of Moher").required(),
     countryid: IdSpec,
   })
   .label("PointDetails");
