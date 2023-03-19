@@ -1,5 +1,5 @@
 import { db } from "../models/db.js";
-import { UserSpec, UserCredentialsSpec } from "../models/joi-schemas.js";
+import { UserSpec, UserCredentialsSpec, AdminCredentialsSpec } from "../models/joi-schemas.js";
 
 export const accountsController = {
   index: {
@@ -14,6 +14,7 @@ export const accountsController = {
       return h.view("signup-view", { title: "Sign up for Playlist" });
     },
   },
+
   signup: {
     auth: false,
     validate: {
@@ -36,6 +37,7 @@ export const accountsController = {
       return h.view("login-view", { title: "Login to Playlist" });
     },
   },
+
   login: {
     auth: false,
     validate: {
@@ -55,6 +57,34 @@ export const accountsController = {
       return h.redirect("/dashboard");
     },
   },
+
+  showAdmin: {
+    auth: false,
+    handler: function (request, h) {
+      return h.view("admin-view", { title: "Admin login view" });
+    },
+  },
+
+  admin: {
+    auth: false,
+    validate: {
+      payload: AdminCredentialsSpec,
+      options: { abortEarly: false },
+      failAction: function (request, h, error) {
+        return h.view("admin-view", { title: "Log in error", errors: error.details }).takeover().code(400);
+      },
+    },
+    handler: function (request, h) {
+      const { email, password } = request.payload;
+      console.log("admin email is:" + email, "and password is:" + password)
+      if (email !== "admin" || password !== "secret") {
+        return h.redirect("/admin");
+      }
+      console.log("/dashboard/admin");
+      return h.redirect("/dashboard/admin");
+    },
+  },
+
   logout: {
     auth: false,
     handler: function (request, h) {

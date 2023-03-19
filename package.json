@@ -1,6 +1,6 @@
 {
   "name": "poi_tracker",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "assignment 1 full stack donal murphy",
   "main": "src/server.js",
   "type": "module",
@@ -43,6 +43,7 @@
     "joi": "^17.8.4",
     "jsonwebtoken": "^9.0.0",
     "lowdb": "^5.1.0",
+    "mais-mongoose-seeder": "^1.0.7",
     "mocha": "^10.2.0",
     "mongoose": "^7.0.2",
     "uuid": "^9.0.0"

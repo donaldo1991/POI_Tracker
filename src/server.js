@@ -22,8 +22,16 @@ const __dirname = path.dirname(__filename);
 const swaggerOptions = {
   info: {
     title: "POI API",
-    version: "0.1",
+    version: "2.0"
   },
+  securityDefinitions: {
+    jwt: {
+      type: "apiKey",
+      name: "Authorization",
+      in: "header"
+    }
+  },
+  security: [{ jwt: [] }]
 };
 
 async function init() {

@@ -2,7 +2,7 @@ import { EventEmitter } from "events";
 import { assert } from "chai";
 import { poiService } from "./POI-service.js";
 import { assertSubset } from "../test-utils.js";
-import { maggie, testCountry, testCountries } from "../fixtures.js";
+import { maggie, testCountry, testCountries, maggieCredentials } from "../fixtures.js";
 
 EventEmitter.setMaxListeners(25);
 
@@ -13,11 +13,11 @@ suite("Country API tests", () => {
   setup(async () => {
     poiService.clearAuth();
     user = await poiService.createUser(maggie);
-    await poiService.authenticate(maggie);
+    await poiService.authenticate(maggieCredentials);
     await poiService.deleteAllCountries();
     await poiService.deleteAllUsers();
     user = await poiService.createUser(maggie);
-    await poiService.authenticate(maggie);
+    await poiService.authenticate(maggieCredentials);
     testCountry.userid = user._id;
   });
 

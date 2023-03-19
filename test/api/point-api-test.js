@@ -1,7 +1,7 @@
 import { assert } from "chai";
 import { assertSubset } from "../test-utils.js";
 import { poiService } from "./POI-service.js";
-import { maggie, testCountry, testPoint, testCountries, testPoints } from "../fixtures.js";
+import { maggie, testCountry, testPoint, testCountries, testPoints, maggieCredentials } from "../fixtures.js";
 
 suite("Point API tests", () => {
 
@@ -11,12 +11,12 @@ suite("Point API tests", () => {
   setup(async () => {
     poiService.clearAuth();
     user = await poiService.createUser(maggie);
-    await poiService.authenticate(maggie);
+    await poiService.authenticate(maggieCredentials);
     await poiService.deleteAllCountries();
     await poiService.deleteAllPoints();
     await poiService.deleteAllUsers();
     user = await poiService.createUser(maggie);
-    await poiService.authenticate(maggie);
+    await poiService.authenticate(maggieCredentials);
     testCountry.userid = user._id;
     country = await poiService.createCountry(testCountry);
   });

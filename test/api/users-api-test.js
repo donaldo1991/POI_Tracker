@@ -1,7 +1,7 @@
 import { assert } from "chai";
 import { poiService } from "./POI-service.js";
 import { assertSubset } from "../test-utils.js";
-import { maggie, testUsers } from "../fixtures.js";
+import { maggie, maggieCredentials, testUsers } from "../fixtures.js";
 import { db } from "../../src/models/db.js";
 
 const users = new Array(testUsers.length);
@@ -10,14 +10,14 @@ suite("User API tests", () => {
   setup(async () => {
     poiService.clearAuth();
     await poiService.createUser(maggie);
-    await poiService.authenticate(maggie);
+    await poiService.authenticate(maggieCredentials);
     await poiService.deleteAllUsers();
     for (let i = 0; i < testUsers.length; i += 1) {
       // eslint-disable-next-line no-await-in-loop
       users[0] = await poiService.createUser(testUsers[i]);
     }
     await poiService.createUser(maggie);
-    await poiService.authenticate(maggie);
+    await poiService.authenticate(maggieCredentials);
   });
 
   teardown(async () => {
@@ -34,7 +34,7 @@ suite("User API tests", () => {
     assert.equal(returnedUsers.length, 4);
     await poiService.deleteAllUsers();
     await poiService.createUser(maggie);
-    await poiService.authenticate(maggie);
+    await poiService.authenticate(maggieCredentials);
     returnedUsers = await poiService.getAllUsers();
     assert.equal(returnedUsers.length, 1);
   });
@@ -57,7 +57,7 @@ suite("User API tests", () => {
   test("get a user - deleted user", async () => {
    await poiService.deleteAllUsers();
    await poiService.createUser(maggie);
-   await poiService.authenticate(maggie);
+   await poiService.authenticate(maggieCredentials);
    try {
      const returnedUser = await poiService.getUser(users[0]._id);
      assert.fail("Should not return a response");

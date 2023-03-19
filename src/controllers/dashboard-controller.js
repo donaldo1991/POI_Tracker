@@ -15,6 +15,30 @@ export const dashboardController = {
     },
   },
 
+  admin: {
+    handler: async function (request, h) {
+      console.log("dashboard-controller");
+      const users = await db.userStore.getAllUsers();
+      const numUsers = users.length();
+      const countries = await db.countryStore.getAllCountries();
+      const numCountries = countries.length();
+      const points = await db.pointStore.getAllPoints();
+      const numPoints = points.length();
+      const viewData = {
+        title: "Admin Dashboard",
+        users: users,
+        countries: countries,
+        points: points,
+        numUsers: numUsers,
+        numCountries: numCountries,
+        numPoints: numPoints,
+      };
+      console.log(viewData);
+      console.log("admin-dashboard");
+      return h.view("admin-dashboard", viewData);
+    },
+  },
+
   addCountry: {
     validate: {
       payload: CountrySpec,

@@ -8,6 +8,13 @@ export const UserCredentialsSpec = Joi.object()
   })
   .label("UserCredentials");
 
+export const AdminCredentialsSpec = Joi.object()
+  .keys({
+    email: Joi.string().required(),
+    password: Joi.string().required(),
+  })
+  .label("AdminCredentials");
+
 export const UserSpec = UserCredentialsSpec.keys({
   firstName: Joi.string().example("Homer").required(),
   lastName: Joi.string().example("Simpson").required(),
@@ -51,3 +58,10 @@ export const CountrySpecPlus = CountrySpec.keys({
 }).label("CountryPlus");
 
 export const CountryArray = Joi.array().items(CountrySpecPlus).label("CountryArray");
+
+export const JwtAuth = Joi.object()
+  .keys({
+    success: Joi.boolean().example("true").required(),
+    token: Joi.string().example("eyJhbGciOiJND.g5YmJisIjoiaGYwNTNjAOhE.gCWGmY5-YigQw0DCBo").required(),
+  })
+  .label("JwtAuth");
