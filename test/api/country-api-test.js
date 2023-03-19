@@ -11,9 +11,13 @@ suite("Country API tests", () => {
   let user = null;
 
   setup(async () => {
+    poiService.clearAuth();
+    user = await poiService.createUser(maggie);
+    await poiService.authenticate(maggie);
     await poiService.deleteAllCountries();
     await poiService.deleteAllUsers();
     user = await poiService.createUser(maggie);
+    await poiService.authenticate(maggie);
     testCountry.userid = user._id;
   });
 

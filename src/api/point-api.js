@@ -1,9 +1,13 @@
 import Boom from "@hapi/boom";
 import { db } from "../models/db.js";
+import { IdSpec, PointArray, PointSpec, PointSpecPlus } from "../models/joi-schemas.js";
+import { validationError } from "../logger.js";
 
 export const pointApi = {
   find: {
-    auth: false,
+    auth: {
+      strategy: "jwt",
+    },
     handler: async function (request, h) {
       try {
         const points = await db.pointStore.getAllPoints();
@@ -12,10 +16,16 @@ export const pointApi = {
         return Boom.serverUnavailable("Database Error");
       }
     },
+    tags: ["api"],
+    response: { schema: PointArray, failAction: validationError },
+    description: "Get all pointApi",
+    notes: "Returns all pointApi",
   },
 
   findOne: {
-    auth: false,
+    auth: {
+      strategy: "jwt",
+    },
     async handler(request) {
       try {
         const point = await db.pointStore.getPointById(request.params.id);
@@ -27,10 +37,17 @@ export const pointApi = {
         return Boom.serverUnavailable("No point with this id");
       }
     },
+    tags: ["api"],
+    description: "Find a Point",
+    notes: "Returns a point",
+    validate: { params: { id: IdSpec }, failAction: validationError },
+    response: { schema: PointSpecPlus, failAction: validationError },
   },
 
   create: {
-    auth: false,
+    auth: {
+      strategy: "jwt",
+    },
     handler: async function (request, h) {
       try {
         const point = await db.pointStore.addPoint(request.params.id, request.payload);
@@ -42,10 +59,17 @@ export const pointApi = {
         return Boom.serverUnavailable("Database Error");
       }
     },
+    tags: ["api"],
+    description: "Create a Point",
+    notes: "Returns the newly created track",
+    validate: { payload: PointSpec },
+    response: { schema: PointSpecPlus, failAction: validationError },
   },
 
   deleteAll: {
-    auth: false,
+    auth: {
+      strategy: "jwt",
+    },
     handler: async function (request, h) {
       try {
         await db.pointStore.deleteAllPoints();
@@ -54,10 +78,14 @@ export const pointApi = {
         return Boom.serverUnavailable("Database Error");
       }
     },
+    tags: ["api"],
+    description: "Delete all pointApi",
   },
 
   deleteOne: {
-    auth: false,
+    auth: {
+      strategy: "jwt",
+    },
     handler: async function (request, h) {
       try {
         const point = await db.pointStore.getPointById(request.params.id);
@@ -70,5 +98,8 @@ export const pointApi = {
         return Boom.serverUnavailable("No Point with this id");
       }
     },
+    tags: ["api"],
+    description: "Delete a point",
+    validate: { params: { id: IdSpec }, failAction: validationError },
   },
 };

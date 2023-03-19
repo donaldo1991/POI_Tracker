@@ -9,10 +9,14 @@ suite("Point API tests", () => {
   let country = null;
 
   setup(async () => {
-    await poiService.deleteAllCountries();
-    await poiService.deleteAllUsers();
-    await poiService.deleteAllPoints();
+    poiService.clearAuth();
     user = await poiService.createUser(maggie);
+    await poiService.authenticate(maggie);
+    await poiService.deleteAllCountries();
+    await poiService.deleteAllPoints();
+    await poiService.deleteAllUsers();
+    user = await poiService.createUser(maggie);
+    await poiService.authenticate(maggie);
     testCountry.userid = user._id;
     country = await poiService.createCountry(testCountry);
   });

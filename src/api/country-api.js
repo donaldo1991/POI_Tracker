@@ -1,9 +1,13 @@
 import Boom from "@hapi/boom";
 import { db } from "../models/db.js";
+import { CountryArray, CountrySpec, CountrySpecPlus, IdSpec, UserArray, UserSpec } from "../models/joi-schemas.js";
+import { validationError } from "../logger.js";
 
 export const countryApi = {
   find: {
-    auth: false,
+    auth: {
+      strategy: "jwt",
+    },
     handler: async function (request, h) {
       try {
         const countries = await db.countryStore.getAllCountries();
@@ -12,10 +16,16 @@ export const countryApi = {
         return Boom.serverUnavailable("Database Error");
       }
     },
+    tags: ["api"],
+    description: "Get all countryApi",
+    notes: "Returns details of all countryApi",
+    response: { schema: CountryArray, failAction: validationError }
   },
 
   findOne: {
-    auth: false,
+    auth: {
+      strategy: "jwt",
+    },
     async handler(request) {
       try {
         const country = await db.countryStore.getCountryById(request.params.id);
@@ -27,10 +37,17 @@ export const countryApi = {
         return Boom.serverUnavailable("No Country with this id");
       }
     },
+    tags: ["api"],
+    description: "Get a specific country",
+    notes: "Returns country details",
+    response: { schema: CountrySpecPlus, failAction: validationError },
+    validate: { params: { id: IdSpec }, failAction: validationError },
   },
 
   create: {
-    auth: false,
+    auth: {
+      strategy: "jwt",
+    },
     handler: async function (request, h) {
       try {
         const country = request.payload;
@@ -43,10 +60,17 @@ export const countryApi = {
         return Boom.serverUnavailable("Database Error");
       }
     },
+    tags: ["api"],
+    description: "Create a Country",
+    notes: "Returns the newly created country",
+    validate: { payload: CountrySpec, failAction: validationError },
+    response: { schema: CountrySpecPlus, failAction: validationError },
   },
 
   deleteOne: {
-    auth: false,
+    auth: {
+      strategy: "jwt",
+    },
     handler: async function (request, h) {
       try {
         const country = await db.countryStore.getCountryById(request.params.id);
@@ -59,10 +83,15 @@ export const countryApi = {
         return Boom.serverUnavailable("No Country with this id");
       }
     },
+    tags: ["api"],
+    description: "Delete a specific country",
+    validate: { params: { id: IdSpec }, failAction: validationError },
   },
 
   deleteAll: {
-    auth: false,
+    auth: {
+      strategy: "jwt",
+    },
     handler: async function (request, h) {
       try {
         await db.countryStore.deleteAllCountries();
@@ -71,5 +100,8 @@ export const countryApi = {
         return Boom.serverUnavailable("Database Error");
       }
     },
+    tags: ["api"],
+    description: "Delete all countryApi",
+    notes: "All countryApi removed from tourist attractions",
   },
 };

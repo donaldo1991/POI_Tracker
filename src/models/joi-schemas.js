@@ -1,29 +1,51 @@
 import Joi from "joi";
 export const IdSpec = Joi.alternatives().try(Joi.string(), Joi.object()).description("a valid ID");
 
-export const UserSpec = Joi.object()
+export const UserCredentialsSpec = Joi.object()
   .keys({
-    firstName: Joi.string().example("Homer").required(),
-    lastName: Joi.string().example("Simpson").required(),
     email: Joi.string().email().example("homer@simpson.com").required(),
     password: Joi.string().example("secret").required(),
-    _id: IdSpec,
-    __v: Joi.number(),
   })
-  .label("UserDetails");
+  .label("UserCredentials");
 
-export const UserCredentialsSpec = {
-  email: Joi.string().email().required(),
-  password: Joi.string().required(),
-};
+export const UserSpec = UserCredentialsSpec.keys({
+  firstName: Joi.string().example("Homer").required(),
+  lastName: Joi.string().example("Simpson").required(),
+}).label("UserDetails");
 
-export const PointSpec = {
-  name: Joi.string().required(),
-  coordinates: Joi.string().required(),
-};
+export const UserSpecPlus = UserSpec.keys({
+  _id: IdSpec,
+  __v: Joi.number(),
+}).label("UserDetailsPlus");
 
-export const CountrySpec = {
-  name: Joi.string().required(),
-};
+export const UserArray = Joi.array().items(UserSpecPlus).label("UserArray");
 
-export const UserArray = Joi.array().items(UserSpec).label("UserArray");
+export const PointSpec = Joi.object()
+  .keys({
+    name: Joi.string().example("Cliffs of Moher").required(),
+    coordinates: Joi.number().example(1).required(),
+    countryid: IdSpec,
+  })
+  .label("PointDetails");
+
+export const PointSpecPlus = PointSpec.keys({
+  _id: IdSpec,
+  __v: Joi.number(),
+}).label("PointPlus");
+
+export const PointArray = Joi.array().items(PointSpecPlus).label("PointArray");
+
+export const CountrySpec = Joi.object()
+  .keys({
+    name: Joi.string().required().example("Ireland"),
+    userid: IdSpec,
+    points: PointArray,
+  })
+  .label("Country");
+
+export const CountrySpecPlus = CountrySpec.keys({
+  _id: IdSpec,
+  __v: Joi.number(),
+}).label("CountryPlus");
+
+export const CountryArray = Joi.array().items(CountrySpecPlus).label("CountryArray");
