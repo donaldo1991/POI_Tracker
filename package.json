@@ -3,6 +3,9 @@
   "version": "3.0.0",
   "description": "assignment 1 full stack donal murphy",
   "main": "src/server.js",
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "type": "module",
   "scripts": {
     "start": "node src/server.js",
