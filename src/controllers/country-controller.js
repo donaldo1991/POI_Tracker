@@ -43,7 +43,7 @@ export const countryController = {
     },
   },
 
-  uploadImage: {
+  uploadCountryImage: {
     handler: async function (request, h) {
       try {
         const country = await db.countryStore.getCountryById(request.params.id);
@@ -66,5 +66,6 @@ export const countryController = {
       parse: true,
     },
   },
+
 
 };

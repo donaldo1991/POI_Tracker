@@ -24,7 +24,7 @@ export const webRoutes = [
 
   { method: "GET", path: "/{param*}", handler: { directory: { path: "./public" } }, options: { auth: false } },
 
-  { method: "POST", path: "/country/{id}/uploadimage", config: countryController.uploadImage }
+  { method: "POST", path: "/country/{id}/uploadimage", config: countryController.uploadCountryImage }
 
 
 

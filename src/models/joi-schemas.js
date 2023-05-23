@@ -47,6 +47,7 @@ export const PointArray = Joi.array().items(PointSpecPlus).label("PointArray");
 export const CountrySpec = Joi.object()
   .keys({
     name: Joi.string().required().example("Ireland"),
+    continent: Joi.string().required().example("Europe"),
     userid: IdSpec,
     points: PointArray,
   })

@@ -52,6 +52,7 @@ export const dashboardController = {
       const newCountries = {
         userid: loggedInUser._id,
         name: request.payload.name,
+        continent: request.payload.continent,
       };
       await db.countryStore.addCountry(newCountries);
       return h.redirect("/dashboard");

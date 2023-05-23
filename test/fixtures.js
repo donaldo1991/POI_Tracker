@@ -36,17 +36,21 @@ export const testUsers = [
 
 export const testCountry = {
   name: "test country",
+  continent: "test continent",
 };
 
 export const testCountries = [
   {
     name: "Ireland",
+    continent: "Europe",
   },
   {
     name: "England",
+    continent: "Europe",
   },
   {
     name: "Scotland",
+    continent: "Europe",
   }
 ];
 

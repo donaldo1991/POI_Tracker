@@ -12,6 +12,7 @@ export const apiRoutes = [
   { method: "DELETE", path: "/api/countries", config: countryApi.deleteAll },
   { method: "GET", path: "/api/countries", config: countryApi.find },
   { method: "GET", path: "/api/countries/{id}", config: countryApi.findOne },
+  //{ method: "GET", path: "/api/countries/{id}", config: countryApi.deleteOne },
   { method: "DELETE", path: "/api/countries/{id}", config: countryApi.deleteOne },
 
   { method: "GET", path: "/api/points", config: pointApi.find },
@@ -19,6 +20,11 @@ export const apiRoutes = [
   { method: "POST", path: "/api/countries/{id}/points", config: pointApi.create },
   { method: "DELETE", path: "/api/points", config: pointApi.deleteAll },
   { method: "DELETE", path: "/api/points/{id}", config: pointApi.deleteOne },
+
+  //{ method: "POST", path: "/api/countries/{id}/image", config: countryApi.uploadImage },
+  //{ method: "DELETE", path: "/api/countries/{id}/image", config: countryApi.deleteImage },
+  //{ method: "POST", path: "/api/points/{id}/image", config: pointApi.uploadImage },
+  //{ method: "DELETE", path: "/api/points/{id}/image", config: pointApi.deleteImage },
 
   { method: "POST", path: "/api/users/authenticate", config: userApi.authenticate },
 
